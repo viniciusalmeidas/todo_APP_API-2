@@ -1,18 +1,19 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const ControllerUsuario = require("./controllers/usuario/usuario-controller");
-const ControllerTarefas = require("./controllers/tarefas/tarefa-controller");
-const bd = require('./infra/sqlite-db')
+//Instanciamentos 
+const express = require("express");
+const bodyParser = require("body-parser");
 
+const app = express(); //tem método USE 
 const port = 8080;
+const bd = require("./infras/bd")
 
-const app = express();
-
+//colocando o parser pra rodar 
 app.use(bodyParser.json());
+//Recbe tudo em binário, o bodyparser transforma o binário em json
+const usuarioController = require("./Controller/usuario-controller.js");
+const tarefaController = require('./Controller/tarefas-controller');
+usuarioController(app, bd);
+tarefaController(app, bd);
 
-ControllerTarefas(app,bd);
-ControllerUsuario(app,bd);
-
-app.listen(port, () => {
-    console.log(`Tudo pronto. Testar em localhost:${port}`)
+app.listen(port, ()=> {
+    console.log("exemplo blablabla")
 });
